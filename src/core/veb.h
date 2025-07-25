@@ -42,7 +42,7 @@ public:
 
     std::string to_string() const
     {
-        return "";
+        return "veb_as_string";
     }
 };
 
