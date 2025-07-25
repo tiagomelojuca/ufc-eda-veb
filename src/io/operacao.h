@@ -12,7 +12,7 @@ namespace io
 
 struct op
 {
-    enum class tipo { INCLUSAO, REMOCAO, SUCESSAO, IMPRESSAO };
+    enum class tipo { INCLUSAO, REMOCAO, SUCESSAO, PREDECESSAO, IMPRESSAO };
 
     op(tipo tipoOperacao, int param = -1)
         : tipoOperacao(tipoOperacao), param(param) {}
@@ -36,6 +36,10 @@ struct op
         else if (tipoOperacao == tipo::SUCESSAO)
         {
             str += "SUC";
+        }
+        else if (tipoOperacao == tipo::PREDECESSAO)
+        {
+            str += "PRE";
         }
         else if (tipoOperacao == tipo::IMPRESSAO)
         {

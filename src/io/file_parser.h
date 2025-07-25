@@ -103,6 +103,11 @@ private:
             {
                 return new op(op::tipo::SUCESSAO, std::atoi(params.c_str()));
             }
+
+            if (instrucao == "PRE")
+            {
+                return new op(op::tipo::PREDECESSAO, std::atoi(params.c_str()));
+            }
         }
 
         return nullptr;

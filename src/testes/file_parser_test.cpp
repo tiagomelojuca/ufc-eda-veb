@@ -18,6 +18,9 @@ REM 47 42
 SUC 50
 SUC 40 65
 SUC 40 10 20
+PRE 50
+PRE 40 65
+PRE 40 10 20
 IMP
 IMP 20
 IMP 10 15
@@ -49,6 +52,7 @@ TEST(file_parser_test, deve_ser_capaz_de_ler_arquivo)
         ufc::eda::io::op(ufc::eda::io::op::tipo::REMOCAO, 42),
         ufc::eda::io::op(ufc::eda::io::op::tipo::REMOCAO, 42),
         ufc::eda::io::op(ufc::eda::io::op::tipo::SUCESSAO, 50),
+        ufc::eda::io::op(ufc::eda::io::op::tipo::PREDECESSAO, 50),
         ufc::eda::io::op(ufc::eda::io::op::tipo::IMPRESSAO),
         ufc::eda::io::op(ufc::eda::io::op::tipo::IMPRESSAO)
     };
