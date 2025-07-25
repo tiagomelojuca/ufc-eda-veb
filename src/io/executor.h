@@ -39,6 +39,8 @@ public:
 private:
     void executa(ufc::eda::io::file_writer& fwriter, const ufc::eda::io::op& op)
     {
+        fwriter << op;
+
         if (op.tipoOperacao == ufc::eda::io::op::tipo::INCLUSAO)
         {
             arvore.inclui(op.param);
@@ -57,11 +59,23 @@ private:
                 str_sucessor = std::to_string(sucessor);
             }
 
-            fwriter << op << str_sucessor << "\n";
+            fwriter << str_sucessor << "\n";
+        }
+        else if (op.tipoOperacao == ufc::eda::io::op::tipo::PREDECESSAO)
+        {
+            std::string str_predecessor = "INF";
+
+            const int predecessor = arvore.predecessor(op.param);
+            if (predecessor != ufc::eda::core::veb::inf)
+            {
+                str_predecessor = std::to_string(predecessor);
+            }
+
+            fwriter << str_predecessor << "\n";
         }
         else if (op.tipoOperacao == ufc::eda::io::op::tipo::IMPRESSAO)
         {
-            fwriter << op << arvore.to_string() << "\n";
+            fwriter << arvore.to_string() << "\n";
         }
     }
 
