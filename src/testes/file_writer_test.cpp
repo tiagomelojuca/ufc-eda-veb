@@ -7,9 +7,9 @@
 const char* conteudo_esperado = R"(INC 11
 REM 42
 REM 42
-SUC 50 65
-IMP 65
-IMP 20
+SUC 50
+IMP
+IMP
 )";
 
 std::string le_conteudo_arquivo(const std::string& nome_arquivo)
@@ -36,9 +36,9 @@ TEST(file_writer_test, deve_ser_capaz_de_ler_arquivo)
     fwriter << ufc::eda::io::op(ufc::eda::io::op::tipo::INCLUSAO, 11)
             << ufc::eda::io::op(ufc::eda::io::op::tipo::REMOCAO, 42)
             << ufc::eda::io::op(ufc::eda::io::op::tipo::REMOCAO, 42)
-            << ufc::eda::io::op(ufc::eda::io::op::tipo::SUCESSAO, 50, 65)
-            << ufc::eda::io::op(ufc::eda::io::op::tipo::IMPRESSAO, 65)
-            << ufc::eda::io::op(ufc::eda::io::op::tipo::IMPRESSAO, 20);
+            << ufc::eda::io::op(ufc::eda::io::op::tipo::SUCESSAO, 50)
+            << ufc::eda::io::op(ufc::eda::io::op::tipo::IMPRESSAO)
+            << ufc::eda::io::op(ufc::eda::io::op::tipo::IMPRESSAO);
 
     EXPECT_STREQ(le_conteudo_arquivo(nome_arquivo).c_str(), conteudo_esperado);
 }

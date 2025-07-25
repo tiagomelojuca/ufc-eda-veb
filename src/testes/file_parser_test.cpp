@@ -15,10 +15,10 @@ INC 11
 REM 42
 REM 42
 REM 47 42
-SUC 50 65
-SUC 40
+SUC 50
+SUC 40 65
 SUC 40 10 20
-IMP 65
+IMP
 IMP 20
 IMP 10 15
 IMP
@@ -48,9 +48,9 @@ TEST(file_parser_test, deve_ser_capaz_de_ler_arquivo)
         ufc::eda::io::op(ufc::eda::io::op::tipo::INCLUSAO, 11),
         ufc::eda::io::op(ufc::eda::io::op::tipo::REMOCAO, 42),
         ufc::eda::io::op(ufc::eda::io::op::tipo::REMOCAO, 42),
-        ufc::eda::io::op(ufc::eda::io::op::tipo::SUCESSAO, 50, 65),
-        ufc::eda::io::op(ufc::eda::io::op::tipo::IMPRESSAO, 65),
-        ufc::eda::io::op(ufc::eda::io::op::tipo::IMPRESSAO, 20)
+        ufc::eda::io::op(ufc::eda::io::op::tipo::SUCESSAO, 50),
+        ufc::eda::io::op(ufc::eda::io::op::tipo::IMPRESSAO),
+        ufc::eda::io::op(ufc::eda::io::op::tipo::IMPRESSAO)
     };
 
     EXPECT_EQ(operacoesObtidas.size(), operacoesEsperadas.size());

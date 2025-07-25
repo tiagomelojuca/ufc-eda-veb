@@ -14,13 +14,11 @@ struct op
 {
     enum class tipo { INCLUSAO, REMOCAO, SUCESSAO, IMPRESSAO };
 
-    op(tipo tipoOperacao, int lparam, int rparam = -1)
-        : tipoOperacao(tipoOperacao), lparam(lparam), rparam(rparam) {}
+    op(tipo tipoOperacao, int param = -1)
+        : tipoOperacao(tipoOperacao), param(param) {}
 
     bool operator==(const op& outra) const {
-        return tipoOperacao == outra.tipoOperacao &&
-               lparam == outra.lparam &&
-               rparam == outra.rparam;
+        return tipoOperacao == outra.tipoOperacao && param == outra.param;
     }
 
     std::string to_string() const
@@ -44,20 +42,17 @@ struct op
             str += "IMP";
         }
 
-        str += " ";
-        str += std::to_string(lparam);
-        if (rparam != -1)
+        if (param != -1)
         {
             str += " ";
-            str += std::to_string(rparam);
+            str += std::to_string(param);
         }
 
         return str;
     }
 
     tipo tipoOperacao;
-    int lparam = -1;
-    int rparam = -1;
+    int param = -1;
 };
 
 }
