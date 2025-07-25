@@ -8,6 +8,7 @@ const char* conteudo_esperado = R"(INC 11
 REM 42
 REM 42
 SUC 50
+PRE 50
 IMP
 IMP
 )";
@@ -37,6 +38,7 @@ TEST(file_writer_test, deve_ser_capaz_de_ler_arquivo)
             << ufc::eda::io::op(ufc::eda::io::op::tipo::REMOCAO, 42)
             << ufc::eda::io::op(ufc::eda::io::op::tipo::REMOCAO, 42)
             << ufc::eda::io::op(ufc::eda::io::op::tipo::SUCESSAO, 50)
+            << ufc::eda::io::op(ufc::eda::io::op::tipo::PREDECESSAO, 50)
             << ufc::eda::io::op(ufc::eda::io::op::tipo::IMPRESSAO)
             << ufc::eda::io::op(ufc::eda::io::op::tipo::IMPRESSAO);
 
