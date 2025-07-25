@@ -5,7 +5,7 @@
         "name": "(Windows) Launch",
         "type": "cppvsdbg",
         "request": "launch",
-        "program": "${workspaceFolder}/out/exeobj_cmake/bin/TesteUnitario.exe",
+        "program": "${workspaceFolder}/out/exeobj_cmake/bin/unit_test.exe",
         "args": [],
         "stopAtEntry": false,
         "cwd": "${workspaceFolder}/out/exeobj_cmake/bin",

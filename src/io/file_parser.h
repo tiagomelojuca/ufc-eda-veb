@@ -61,26 +61,48 @@ private:
         }
 
         const std::string instrucao = linha.substr(0, 3);
-        if (instrucao == "IMP")
+        if (linha.size() == 3 && instrucao == "IMP")
         {
             return new op(op::tipo::IMPRESSAO);
         }
 
+        if (linha.size() < 4 || linha[3] != ' ')
+        {
+            return nullptr;
+        }
+
         const std::string params = linha.substr(4);
-
-        if (instrucao == "INC")
+        bool temEspaco = false;
+        for (char c : params)
         {
-            return new op(op::tipo::INCLUSAO, std::atoi(params.c_str()));
+            if (c == ' ')
+            {
+                temEspaco = true;
+                break;
+            }
         }
 
-        if (instrucao == "REM")
+        if (temEspaco)
         {
-            return new op(op::tipo::REMOCAO, std::atoi(params.c_str()));
+            return nullptr;
         }
 
-        if (instrucao == "SUC")
+        if (params != "")
         {
-            return new op(op::tipo::SUCESSAO, std::atoi(params.c_str()));
+            if (instrucao == "INC")
+            {
+                return new op(op::tipo::INCLUSAO, std::atoi(params.c_str()));
+            }
+
+            if (instrucao == "REM")
+            {
+                return new op(op::tipo::REMOCAO, std::atoi(params.c_str()));
+            }
+
+            if (instrucao == "SUC")
+            {
+                return new op(op::tipo::SUCESSAO, std::atoi(params.c_str()));
+            }
         }
 
         return nullptr;
