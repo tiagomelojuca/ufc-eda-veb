@@ -18,6 +18,7 @@ add_subdirectory(
 
 add_executable(
     unit_test
+    "veb_test.cpp"
     "arg_parser_test.cpp"
     "executor_test.cpp"
     "file_parser_test.cpp"
