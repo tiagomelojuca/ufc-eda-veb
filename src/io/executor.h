@@ -43,17 +43,17 @@ private:
 
         if (op.tipoOperacao == ufc::eda::io::op::tipo::INCLUSAO)
         {
-            arvore.inclui(op.param);
+            veb.inclui(op.param);
         }
         else if (op.tipoOperacao == ufc::eda::io::op::tipo::REMOCAO)
         {
-            arvore.remove(op.param);
+            veb.remove(op.param);
         }
         else if (op.tipoOperacao == ufc::eda::io::op::tipo::SUCESSAO)
         {
             std::string str_sucessor = "INF";
 
-            const int sucessor = arvore.sucessor(op.param);
+            const int sucessor = veb.sucessor(op.param);
             if (sucessor != ufc::eda::core::veb::inf)
             {
                 str_sucessor = std::to_string(sucessor);
@@ -65,7 +65,7 @@ private:
         {
             std::string str_predecessor = "INF";
 
-            const int predecessor = arvore.predecessor(op.param);
+            const int predecessor = veb.predecessor(op.param);
             if (predecessor != ufc::eda::core::veb::inf)
             {
                 str_predecessor = std::to_string(predecessor);
@@ -75,12 +75,12 @@ private:
         }
         else if (op.tipoOperacao == ufc::eda::io::op::tipo::IMPRESSAO)
         {
-            fwriter << arvore.to_string() << "\n";
+            fwriter << veb.to_string() << "\n";
         }
     }
 
     std::string arquivo_saida;
-    ufc::eda::core::veb arvore;
+    ufc::eda::core::veb veb;
     std::vector<op> _operacoes;
 };
 
