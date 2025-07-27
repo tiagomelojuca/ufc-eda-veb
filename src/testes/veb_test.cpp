@@ -172,16 +172,19 @@ TEST(veb_test, teste_estresse)
     EXPECT_EQ(veb.sucessor(1026), 2048);
     EXPECT_EQ(veb.sucessor(4097), 8192);
 
+    veb.remove(65536);
+    veb.remove(22);
+
     std::string veb_esperada = "";
     veb_esperada += "Min: 1";
     veb_esperada += ", ";
     veb_esperada += "C[0]: ";
-    veb_esperada += "3, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 22, 31";
+    veb_esperada += "3, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 31";
     veb_esperada += ", ";
     veb_esperada += "255, 256, 257, 511, 1023, 1024, 1025, 2048, 4096, 8192, 16384, 65535";
     veb_esperada += ", ";
     veb_esperada += "C[1]: ";
-    veb_esperada += "65536, 65537, C[65535]: 4294967294";
+    veb_esperada += "65537, C[65535]: 4294967294";
 
     EXPECT_STREQ(
         veb.to_string().c_str(),
