@@ -30,8 +30,20 @@ O arquivo de entrada especifica a rotina a ser executada, cujos resultados são 
 ## Estrutura
 O projeto foi dividido em módulos, de forma a separar a implementação da ABB persistente (regra de negócio propriamente dita) dos demais arquivos que não são o objeto de estudo principal (ruído, basicamente). A estrutura de dados fica isolada e agnóstica em relação ao uso. O arquivo `main.cpp` atua como ponto de entrada do programa, apenas redirecionando as responsabilidades ao consumir as classes explicitadas abaixo:  
   
-### ToDo
-ToDo
+### core
+Módulo principal, onde podem ser encontradas as estruturas de dados solicitadas
+  
+- `veb.h`: Estrutura Van Emde Boas com suporte a inclusão, remoção, verificação de mínimo, verificação de máximo, verificação de sucessor, verificação de predecessor, e visita dos elementos em ordem direta e inversa, bem como utilidades de serialização para string
+- `htbl.h`: Implementação ingênua de uma tabela dispersão auxiliar para uso na implementação da estrutura Van Emde Boas supracitada, com suporte a
+
+### io
+Módulo onde ficam as classes e funções relacionadas a e/s  
+  
+- `arg_parser.h`: classe responsável pela validação da entrada do usuário na linha de comando (ex.: a quantidade de argumentos está correta? a extensão dos arquivos é válida? senão, qual o erro?)
+- `file_parser.h`: realiza a leitura do arquivo de entrada fornecido pelo usuário e interpreta as instruções contidas nele, convertendo-as para um formato estruturado (vide `operacao.h`) que serão executadas pelo instrumentador (vide `executor.h`)
+- `file_writer.h`: realiza a escrita em arquivo das operações
+- `operacao.h`: abstração das possíveis instruções e parâmetros que o usuário pode fornecer no arquivo de entrada
+- `executor.h`: instrumenta a execução sequencial das operações lidas do arquivo de entrada
 
 ### testes
 Módulo onde ficam os testes unitários escritos no framework `googletest` para validar as implementações supracitadas. Para não ser redundante em relação à seção acima, é suficiente dizer que o arquivo `foo_test.cpp` se refere aos testes unitários da classe `foo.h`. Informações mais específicas podem ser encontradas nos comentários e títulos de cada Test Case, se for de interesse.
