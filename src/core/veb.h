@@ -177,8 +177,8 @@ public:
                 veb& cluster = *veb_no_cluster(c);
                 if (cluster.valido())
                 {
-                    cluster.for_each([&str](word_t valor) {
-                        str += std::to_string(valor);
+                    cluster.for_each([this, c, &str](word_t i) {
+                        str += std::to_string(palavra(c, i));
                         str += ", ";
                     });
                 }
