@@ -58,6 +58,11 @@ public:
         delete _resumo;
     }
 
+    bool valido() const
+    {
+        return _resumo != nullptr;
+    }
+
     word_t min() const
     {
         return _min;
@@ -66,11 +71,6 @@ public:
     word_t max() const
     {
         return _max;
-    }
-
-    bool valido() const
-    {
-        return _resumo != nullptr;
     }
 
     void inclui(word_t x)
