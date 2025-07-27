@@ -112,7 +112,7 @@ public:
 
     word_t sucessor(word_t x)
     {
-        if (!valido())
+        if (!valido() || x >= _max)
         {
             return inf;
         }
@@ -132,6 +132,10 @@ public:
         }
 
         const word_t c_linha = _resumo->sucessor(c);
+        if (c_linha == inf)
+        {
+            return _max;
+        }
 
         return palavra(c_linha, veb_no_cluster(c_linha)->min());
     }
