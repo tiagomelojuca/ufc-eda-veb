@@ -143,6 +143,9 @@ public:
             if (cluster_alvo->_min == inf)
             {
                 _resumo->remove(c);
+
+                delete _clusters.find(c)->second;
+                _clusters.erase(c);
             }
 
             if (_resumo->_min == inf)
