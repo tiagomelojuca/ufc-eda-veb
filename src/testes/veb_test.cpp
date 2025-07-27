@@ -45,6 +45,27 @@ TEST(veb_test, teste_basico_2)
     );
 }
 
+TEST(veb_test, teste_igual_do_executor)
+{
+    ufc::eda::core::veb veb;
+
+    veb.inclui(6);
+    veb.remove(42);
+    veb.remove(42);
+    veb.inclui(5);
+    veb.inclui(7);
+    veb.inclui(8);
+    veb.inclui(5);
+    veb.inclui(2);
+    veb.sucessor(40);
+    veb.predecessor(40);
+    veb.inclui(4);
+    veb.inclui(4);
+    veb.remove(4);
+    veb.remove(4);
+    veb.to_string();
+}
+
 TEST(veb_test, teste_estresse)
 {
     ufc::eda::core::veb veb;
