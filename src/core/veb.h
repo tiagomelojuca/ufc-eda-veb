@@ -136,21 +136,24 @@ public:
             cluster_alvo = veb_no_cluster(c);
         }
 
-        cluster_alvo->remove(i);
+        if (cluster_alvo->valido())
+        {
+            cluster_alvo->remove(i);
 
-        if (cluster_alvo->_min == inf)
-        {
-            _resumo->remove(c);
-        }
+            if (cluster_alvo->_min == inf)
+            {
+                _resumo->remove(c);
+            }
 
-        if (_resumo->_min == inf)
-        {
-            _max = _min;
-        }
-        else
-        {
-            const word_t c_linha = _resumo->_max;
-            _max = palavra(c_linha, veb_no_cluster(c_linha)->_max);
+            if (_resumo->_min == inf)
+            {
+                _max = _min;
+            }
+            else
+            {
+                const word_t c_linha = _resumo->_max;
+                _max = palavra(c_linha, veb_no_cluster(c_linha)->_max);
+            }
         }
     }
 
