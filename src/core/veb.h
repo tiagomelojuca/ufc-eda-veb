@@ -163,8 +163,7 @@ public:
         const word_t predecessor_no_cluster = cluster->predecessor(i);
         if (predecessor_no_cluster != inf)
         {
-            const word_t _predecessor = palavra(c, predecessor_no_cluster);
-            return _predecessor <= _min ? _predecessor : _min;
+            return palavra(c, predecessor_no_cluster);
         }
 
         const word_t c_linha = _resumo->predecessor(c);
@@ -173,8 +172,7 @@ public:
             return _min;
         }
 
-        const word_t _predecessor = palavra(c_linha, veb_no_cluster(c_linha)->max());
-        return _predecessor <= _min ? _predecessor : _min;
+        return palavra(c_linha, veb_no_cluster(c_linha)->max());
     }
 
     void for_each(std::function<void(word_t)> callback)
