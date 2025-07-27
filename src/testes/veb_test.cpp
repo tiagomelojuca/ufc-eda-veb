@@ -23,3 +23,28 @@ TEST(veb_test, dummy)
         it = veb.sucessor(it);
     }
 }
+
+TEST(veb_test, edge_cases)
+{
+    ufc::eda::core::veb veb;
+
+    veb.inclui(1);
+    veb.inclui(1); // caso x == _min
+
+    veb.inclui(5);
+    veb.inclui(10);
+    veb.inclui(10); // caso x == _max
+
+    veb.inclui(10);
+    veb.inclui(10);
+
+    veb.inclui(3);
+    veb.inclui(7);
+    
+    uint32_t it = veb.min();
+    while(it != ufc::eda::core::veb::inf)
+    {
+        printf("\n%u", it);
+        it = veb.sucessor(it);
+    }
+}
