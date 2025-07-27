@@ -1,5 +1,5 @@
 # ufc-eda-veb
-O presente projeto foi desenvolvido para a cadeira de Estrutura de Dados Avançada da Universidade Federal do Ceará. Consiste na implementação de uma estrutura Van Emde Boas.
+O presente projeto foi desenvolvido para a cadeira de Estrutura de Dados Avançada da Universidade Federal do Ceará. Consiste na implementação de uma estrutura Van Emde Boas com espaço linear no número de elementos.
 
 ## Equipe
 - Tiago Melo Jucá
@@ -34,7 +34,7 @@ O projeto foi dividido em módulos, de forma a separar a implementação da ABB 
 Módulo principal, onde podem ser encontradas as estruturas de dados solicitadas
   
 - `veb.h`: Estrutura Van Emde Boas com suporte a inclusão, remoção, verificação de mínimo, verificação de máximo, verificação de sucessor, verificação de predecessor, e visita dos elementos em ordem direta e inversa, bem como utilidades de serialização para string
-- `htbl.h`: Implementação ingênua de uma tabela dispersão auxiliar para uso na implementação da estrutura Van Emde Boas supracitada, com suporte a
+- `htbl.h`: Implementação ingênua de uma tabela dispersão auxiliar para uso na implementação da estrutura Van Emde Boas supracitada, com suporte as operações canônicas de busca, inclusão e remoção, bem como a realização de doubling/halving quando for cabível
 
 ### io
 Módulo onde ficam as classes e funções relacionadas a e/s  
