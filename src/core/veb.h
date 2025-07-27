@@ -144,7 +144,7 @@ public:
             {
                 _resumo->remove(c);
 
-                delete _clusters.find(c)->second;
+                delete cluster_alvo;
                 _clusters.erase(c);
             }
 
