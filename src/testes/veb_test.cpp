@@ -57,13 +57,19 @@ TEST(veb_test, teste_igual_do_executor)
     veb.inclui(8);
     veb.inclui(5);
     veb.inclui(2);
-    veb.sucessor(40);
-    veb.predecessor(40);
+
+    EXPECT_EQ(veb.sucessor(40), ufc::eda::core::veb::inf);
+    EXPECT_EQ(veb.predecessor(40), 8);
+
     veb.inclui(4);
     veb.inclui(4);
     veb.remove(4);
     veb.remove(4);
-    veb.to_string();
+
+    EXPECT_STREQ(
+        veb.to_string().c_str(),
+        "Min: 2, C[0]: 5, 6, 7, 8"
+    );
 }
 
 TEST(veb_test, teste_estresse)
