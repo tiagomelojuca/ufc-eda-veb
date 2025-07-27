@@ -190,7 +190,5 @@ TEST(veb_test, teste_estresse)
         veb.to_string().c_str(),
         veb_esperada.c_str()
     );
-
-    printf("%s", veb.trace().c_str());
 }
 
