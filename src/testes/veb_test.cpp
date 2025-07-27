@@ -122,6 +122,9 @@ TEST(veb_test, complex_stress_test)
     veb.inclui(65537);
     EXPECT_EQ(veb.max(), 65537);
 
+    veb.inclui(4294967294);
+    EXPECT_EQ(veb.max(), 4294967294);
+
     EXPECT_EQ(veb.sucessor(1), 3);
     EXPECT_EQ(veb.sucessor(3), 7);
     EXPECT_EQ(veb.sucessor(7), 8);
@@ -149,7 +152,8 @@ TEST(veb_test, complex_stress_test)
     EXPECT_EQ(veb.sucessor(16384), 65535);
     EXPECT_EQ(veb.sucessor(65535), 65536);
     EXPECT_EQ(veb.sucessor(65536), 65537);
-    EXPECT_EQ(veb.sucessor(65537), ufc::eda::core::veb::inf);
+    EXPECT_EQ(veb.sucessor(65537), 4294967294);
+    EXPECT_EQ(veb.sucessor(4294967294), ufc::eda::core::veb::inf);
 
     EXPECT_EQ(veb.sucessor(2), 3);
     EXPECT_EQ(veb.sucessor(4), 7);
