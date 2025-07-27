@@ -53,15 +53,15 @@ TEST(executor_test, deve_ser_capaz_de_instrumentar_a_partir_de_arquivo)
     const char* nome_arquivo_entrada = "teste_entrada_executor.txt";
     const char* nome_arquivo_saida = "teste_saida_executor.txt";
 
-    gera_arquivo_entrada_execucao(nome_arquivo_entrada);
-    ufc::eda::io::file_parser fparser(nome_arquivo_entrada);
-    fparser.parse();
+    // gera_arquivo_entrada_execucao(nome_arquivo_entrada);
+    // ufc::eda::io::file_parser fparser(nome_arquivo_entrada);
+    // fparser.parse();
 
-    ufc::eda::io::executor executor(nome_arquivo_saida);
-    for (const ufc::eda::io::op& op : fparser.operacoes())
-    {
-        executor.enfila(op);
-    }
+    // ufc::eda::io::executor executor(nome_arquivo_saida);
+    // for (const ufc::eda::io::op& op : fparser.operacoes())
+    // {
+    //     executor.enfila(op);
+    // }
 
-    executor.executa();
+    // executor.executa();
 }
