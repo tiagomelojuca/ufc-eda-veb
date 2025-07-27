@@ -144,9 +144,37 @@ public:
         return _sucessor <= _max ? _sucessor : _max;
     }
 
-    word_t predecessor(word_t x) const
+    word_t predecessor(word_t x)
     {
-        return -1;
+        if (!valido() || x <= _min)
+        {
+            return inf;
+        }
+
+        if (x > _max)
+        {
+            return _max;
+        }
+
+        const word_t c = cluster(x);
+        const word_t i = indice(x);
+        veb* cluster = veb_no_cluster(c);
+
+        const word_t predecessor_no_cluster = cluster->predecessor(i);
+        if (predecessor_no_cluster != inf)
+        {
+            const word_t _predecessor = palavra(c, predecessor_no_cluster);
+            return _predecessor <= _min ? _predecessor : _min;
+        }
+
+        const word_t c_linha = _resumo->predecessor(c);
+        if (c_linha == inf)
+        {
+            return _min;
+        }
+
+        const word_t _predecessor = palavra(c_linha, veb_no_cluster(c_linha)->max());
+        return _predecessor <= _min ? _predecessor : _min;
     }
 
     void for_each(std::function<void(word_t)> callback)
@@ -156,6 +184,16 @@ public:
         {
             callback(it);
             it = sucessor(it);
+        }
+    }
+
+    void reverse_for_each(std::function<void(word_t)> callback)
+    {
+        word_t it = max();
+        while (it != inf)
+        {
+            callback(it);
+            it = predecessor(it);
         }
     }
 
@@ -220,7 +258,7 @@ public:
     {
         std::string str = "";
 
-        for_each([&str](word_t it) {
+        reverse_for_each([&str](word_t it) {
             str += std::to_string(it);
             str += " -> ";
         });
