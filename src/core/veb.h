@@ -199,7 +199,24 @@ public:
         return str;
     }
 
-    std::string to_string_as_list()
+    std::string cadeia_sucessores()
+    {
+        std::string str = "";
+
+        for_each([&str](word_t it) {
+            str += std::to_string(it);
+            str += " -> ";
+        });
+
+        if (str != "")
+        {
+            str.erase(str.length() - 4);
+        }
+
+        return str;
+    }
+
+    std::string cadeia_predecessores()
     {
         std::string str = "";
 
@@ -221,11 +238,14 @@ public:
         std::string str;
 
         str += "veb::trace()\n";
-        str += "    .:. visao_nivel_inicial_resumida : ";
+        str += "    .:. visao_nivel_inicial  : ";
         str += to_string();
         str += "\n";
-        str += "    .:. visao_em_lista               : ";
-        str += to_string_as_list();
+        str += "    .:. cadeia_sucessores    : ";
+        str += cadeia_sucessores();
+        str += "\n";
+        str += "    .:. cadeia_predecessores : ";
+        str += cadeia_predecessores();
         str += "\n";
 
         return str;
