@@ -167,7 +167,7 @@ public:
         {
             str += "Min: ";
             str += std::to_string(min());
-            str += " ,";
+            str += ", ";
 
             _resumo->for_each([this, &str](word_t c) {
                 str += "C[";
