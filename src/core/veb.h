@@ -126,9 +126,11 @@ public:
         const word_t i = indice(x);
         veb* cluster = veb_no_cluster(c);
 
-        if (i < cluster->max())
+        const word_t sucessor_no_cluster = cluster->sucessor(i);
+        if (sucessor_no_cluster != inf)
         {
-            return palavra(c, cluster->sucessor(i));
+            const word_t _sucessor = palavra(c, sucessor_no_cluster);
+            return _sucessor <= _max ? _sucessor : _max;
         }
 
         const word_t c_linha = _resumo->sucessor(c);
@@ -137,7 +139,8 @@ public:
             return _max;
         }
 
-        return palavra(c_linha, veb_no_cluster(c_linha)->min());
+        const word_t _sucessor = palavra(c_linha, veb_no_cluster(c_linha)->min());
+        return _sucessor <= _max ? _sucessor : _max;
     }
 
     word_t predecessor(word_t x) const
