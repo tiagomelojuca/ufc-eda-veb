@@ -109,6 +109,49 @@ public:
 
     void remove(word_t x)
     {
+        veb* cluster_alvo = nullptr;
+        word_t c = inf;
+        word_t i = inf;
+
+        if (x == _min)
+        {
+            c = _resumo->_min;
+            if (c == inf)
+            {
+                _min = inf;
+                return;
+            }
+
+            cluster_alvo = veb_no_cluster(c);
+            i = cluster_alvo->_min;
+
+            x = palavra(c, i);
+            _min = x;
+        }
+
+        if (cluster_alvo == nullptr)
+        {
+            c = cluster(x);
+            i = indice(x);
+            cluster_alvo = veb_no_cluster(c);
+        }
+
+        cluster_alvo->remove(i);
+
+        if (cluster_alvo->_min == inf)
+        {
+            _resumo->remove(c);
+        }
+
+        if (_resumo->_min == inf)
+        {
+            _max = _min;
+        }
+        else
+        {
+            const word_t c_linha = _resumo->_max;
+            _max = palavra(c_linha, veb_no_cluster(c_linha)->_max);
+        }
     }
 
     word_t sucessor(word_t x)
