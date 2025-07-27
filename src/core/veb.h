@@ -1,6 +1,7 @@
 #ifndef VEB_H_
 #define VEB_H_
 
+#include <functional>
 #include <unordered_map>
 
 #include <cstdint>
@@ -148,9 +149,86 @@ public:
         return -1;
     }
 
-    std::string to_string() const
+    void for_each(std::function<void(word_t)> callback)
     {
-        return "veb_as_string";
+        word_t it = min();
+        while (it != inf)
+        {
+            callback(it);
+            it = sucessor(it);
+        }
+    }
+
+    std::string to_string()
+    {
+        std::string str;
+
+        if (valido())
+        {
+            str += "Min: ";
+            str += std::to_string(min());
+            str += " ,";
+
+            _resumo->for_each([this, &str](word_t c) {
+                str += "C[";
+                str += std::to_string(c);
+                str += "]: ";
+
+                veb& cluster = *veb_no_cluster(c);
+                if (cluster.valido())
+                {
+                    cluster.for_each([&str](word_t valor) {
+                        str += std::to_string(valor);
+                        str += ", ";
+                    });
+                }
+                else {
+                    str += "cluster_invalido";
+                }
+            });
+
+            if (str.back() == ' ')
+            {
+                str.erase(str.length() - 2);
+            }
+        }
+        else {
+            str += "veb_invalida";
+        }
+
+        return str;
+    }
+
+    std::string to_string_as_list()
+    {
+        std::string str = "";
+
+        for_each([&str](word_t it) {
+            str += std::to_string(it);
+            str += " -> ";
+        });
+
+        if (str != "")
+        {
+            str.erase(str.length() - 4);
+        }
+
+        return str;
+    }
+
+    std::string trace()
+    {
+        std::string str;
+
+        str += "veb::trace()\n";
+        str += "    .:. visao_nivel_inicial_resumida : ";
+        str += to_string();
+        str += "\n";
+        str += "    .:. visao_em_lista               : ";
+        str += to_string_as_list();
+        str += "\n";
+
+        return str;
     }
 
 private:

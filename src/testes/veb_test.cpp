@@ -16,12 +16,7 @@ TEST(veb_test, dummy)
     veb.inclui(4);
     veb.inclui(4);
 
-    uint32_t it = veb.min();
-    while(it != ufc::eda::core::veb::inf)
-    {
-        printf("\n%u", it);
-        it = veb.sucessor(it);
-    }
+    printf("%s\n", veb.trace().c_str());
 }
 
 TEST(veb_test, edge_cases)
@@ -29,24 +24,19 @@ TEST(veb_test, edge_cases)
     ufc::eda::core::veb veb;
 
     veb.inclui(1);
-    veb.inclui(1); // caso x == _min
+    veb.inclui(1);
 
     veb.inclui(5);
     veb.inclui(10);
-    veb.inclui(10); // caso x == _max
+    veb.inclui(10);
 
     veb.inclui(10);
     veb.inclui(10);
 
     veb.inclui(3);
     veb.inclui(7);
-    
-    uint32_t it = veb.min();
-    while(it != ufc::eda::core::veb::inf)
-    {
-        printf("\n%u", it);
-        it = veb.sucessor(it);
-    }
+
+    printf("%s\n", veb.trace().c_str());
 }
 
 TEST(veb_test, complex_stress_test)
@@ -123,6 +113,15 @@ TEST(veb_test, complex_stress_test)
     veb.inclui(16384);
     EXPECT_EQ(veb.max(), 16384);
 
+    veb.inclui(65535);
+    EXPECT_EQ(veb.max(), 65535);
+
+    veb.inclui(65536);
+    EXPECT_EQ(veb.max(), 65536);
+
+    veb.inclui(65537);
+    EXPECT_EQ(veb.max(), 65537);
+
     EXPECT_EQ(veb.sucessor(1), 3);
     EXPECT_EQ(veb.sucessor(3), 7);
     EXPECT_EQ(veb.sucessor(7), 8);
@@ -147,7 +146,10 @@ TEST(veb_test, complex_stress_test)
     EXPECT_EQ(veb.sucessor(2048), 4096);
     EXPECT_EQ(veb.sucessor(4096), 8192);
     EXPECT_EQ(veb.sucessor(8192), 16384);
-    EXPECT_EQ(veb.sucessor(16384), ufc::eda::core::veb::inf);
+    EXPECT_EQ(veb.sucessor(16384), 65535);
+    EXPECT_EQ(veb.sucessor(65535), 65536);
+    EXPECT_EQ(veb.sucessor(65536), 65537);
+    EXPECT_EQ(veb.sucessor(65537), ufc::eda::core::veb::inf);
 
     EXPECT_EQ(veb.sucessor(2), 3);
     EXPECT_EQ(veb.sucessor(4), 7);
@@ -160,45 +162,9 @@ TEST(veb_test, complex_stress_test)
     EXPECT_EQ(veb.sucessor(1026), 2048);
     EXPECT_EQ(veb.sucessor(4097), 8192);
 
-    // 1
-    // 3
-    // 7
-    // 7
-    // 8
-    // 9
-    // 10 [x]
-    // 11
-    // 12
-    // 13
-    // 14
-    // 15
-    // 15
-    // 16
-    // 22 [x]
-    // 31
-    // 31
-    // 255
-    // 256
-    // 257
-    // 511
-    // 1,023
-    // 1,024
-    // 1,025
-    // 2,048
-    // 4,096
-    // 8192
-    // 16384
-
-    // Verificando a sequência completa
-    printf("\nValores na estrutura:");
-    uint32_t it = veb.min();
-    int count = 0;
-    while(it != ufc::eda::core::veb::inf && count < 100) // safety limit
-    {
-        printf("\n%u", it);
-        it = veb.sucessor(it);
-        count++;
-    }
-    EXPECT_LT(count, 100); // garante que não entrou em loop infinito
+    // 1 -> 3 -> 7 -> 7 -> 8 -> 9 -> 10 -> 11 -> 12 -> 13 -> 14 -> 15 ->
+    // 15 -> 16 -> 22 -> 31 -> 31 -> 255 -> 256 -> 257 -> 511 -> 1,023 ->
+    // 1,024 -> 1,025 -> 2,048 -> 4,096 -> 8192 -> 16384
+    printf("%s\n", veb.trace().c_str());
 }
 
