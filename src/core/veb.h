@@ -78,7 +78,7 @@ public:
         {
             _min = _max = x;
         }
-        else
+        else if (x != _min)
         {
             if (x < _min)
             {
