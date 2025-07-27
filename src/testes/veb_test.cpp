@@ -4,7 +4,7 @@
 
 #include <cstdio>
 
-TEST(veb_test, dummy)
+TEST(veb_test, teste_basico_1)
 {
     ufc::eda::core::veb veb;
     veb.inclui(6);
@@ -16,10 +16,13 @@ TEST(veb_test, dummy)
     veb.inclui(4);
     veb.inclui(4);
 
-    printf("%s\n", veb.trace().c_str());
+    EXPECT_STREQ(
+        veb.to_string().c_str(),
+        "Min: 2, C[0]: 4, 5, 6, 7, 8"
+    );
 }
 
-TEST(veb_test, edge_cases)
+TEST(veb_test, teste_basico_2)
 {
     ufc::eda::core::veb veb;
 
@@ -36,10 +39,13 @@ TEST(veb_test, edge_cases)
     veb.inclui(3);
     veb.inclui(7);
 
-    printf("%s\n", veb.trace().c_str());
+    EXPECT_STREQ(
+        veb.to_string().c_str(),
+        "Min: 1, C[0]: 3, 5, 7, 10"
+    );
 }
 
-TEST(veb_test, complex_stress_test)
+TEST(veb_test, teste_estresse)
 {
     ufc::eda::core::veb veb;
 
@@ -166,9 +172,20 @@ TEST(veb_test, complex_stress_test)
     EXPECT_EQ(veb.sucessor(1026), 2048);
     EXPECT_EQ(veb.sucessor(4097), 8192);
 
-    // 1 -> 3 -> 7 -> 7 -> 8 -> 9 -> 10 -> 11 -> 12 -> 13 -> 14 -> 15 ->
-    // 15 -> 16 -> 22 -> 31 -> 31 -> 255 -> 256 -> 257 -> 511 -> 1,023 ->
-    // 1,024 -> 1,025 -> 2,048 -> 4,096 -> 8192 -> 16384
-    printf("%s\n", veb.trace().c_str());
+    std::string veb_esperada = "";
+    veb_esperada += "Min: 1";
+    veb_esperada += ", ";
+    veb_esperada += "C[0]: ";
+    veb_esperada += "3, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 22, 31";
+    veb_esperada += ", ";
+    veb_esperada += "255, 256, 257, 511, 1023, 1024, 1025, 2048, 4096, 8192, 16384, 65535";
+    veb_esperada += ", ";
+    veb_esperada += "C[1]: ";
+    veb_esperada += "65536, 65537, C[65535]: 4294967294";
+
+    EXPECT_STREQ(
+        veb.to_string().c_str(),
+        veb_esperada.c_str()
+    );
 }
 
