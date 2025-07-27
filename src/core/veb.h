@@ -28,7 +28,7 @@ public:
 
     veb(size_t tamanho_palavra)
     {
-        if (tamanho_palavra >= 2)
+        if (tamanho_palavra >= 1)
         {
             _tamanho_palavra      = tamanho_palavra;
             _tamanho_meia_palavra = tamanho_palavra >> 1;
@@ -92,16 +92,16 @@ public:
 
             const word_t c = cluster(x);
             const word_t i = indice(x);
-            veb& cluster = veb_no_cluster(c);
+            veb* cluster = veb_no_cluster(c);
 
-            if (cluster.valido())
+            if (cluster->valido())
             {
-                if (cluster.min() == inf)
+                if (cluster->min() == inf)
                 {
                     _resumo->inclui(c);
                 }
 
-                cluster.inclui(i);
+                cluster->inclui(i);
             }
         }
     }
@@ -124,16 +124,16 @@ public:
 
         const word_t c = cluster(x);
         const word_t i = indice(x);
-        veb& cluster = veb_no_cluster(c);
+        veb* cluster = veb_no_cluster(c);
 
-        if (i < cluster.max())
+        if (i < cluster->max())
         {
-            return palavra(c, cluster.sucessor(i));
+            return palavra(c, cluster->sucessor(i));
         }
 
         const word_t c_linha = _resumo->sucessor(c);
 
-        return palavra(c_linha, veb_no_cluster(c_linha).min());
+        return palavra(c_linha, veb_no_cluster(c_linha)->min());
     }
 
     word_t predecessor(word_t x) const
@@ -160,22 +160,25 @@ private:
         return (cluster << _tamanho_meia_palavra) | indice;
     }
 
-    veb& veb_no_cluster(word_t c)
+    veb* veb_no_cluster(word_t c)
     {
         veb* _veb_no_cluster = nullptr;
 
-        auto it = _clusters.find(c);
-        if (it != _clusters.end())
+        if (valido())
         {
-            _veb_no_cluster = it->second;
-        }
-        else
-        {
-            _veb_no_cluster = new veb(_tamanho_meia_palavra);
-            _clusters[c] = _veb_no_cluster;
+            auto it = _clusters.find(c);
+            if (it != _clusters.end())
+            {
+                _veb_no_cluster = it->second;
+            }
+            else
+            {
+                _veb_no_cluster = new veb(_tamanho_meia_palavra);
+                _clusters[c] = _veb_no_cluster;
+            }
         }
 
-        return *_veb_no_cluster;
+        return _veb_no_cluster;
     }
 
     void troca(word_t& v1, word_t& v2)
