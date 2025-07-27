@@ -7,6 +7,8 @@
 #include <cstdint>
 #include <string>
 
+#include "htbl.h"
+
 #define _MAXWORD 0xFFFFFFFF
 
 namespace ufc
@@ -50,11 +52,6 @@ public:
 
     ~veb()
     {
-        for (auto&& it : _clusters)
-        {
-            delete it.second;
-        }
-
         delete _resumo;
     }
 
@@ -145,7 +142,7 @@ public:
                 _resumo->remove(c);
 
                 delete cluster_alvo;
-                _clusters.erase(c);
+                _clusters.remove(c);
             }
 
             if (_resumo->_min == inf)
@@ -356,15 +353,11 @@ private:
 
         if (valido())
         {
-            auto it = _clusters.find(c);
-            if (it != _clusters.end())
-            {
-                _veb_no_cluster = it->second;
-            }
-            else
+            _veb_no_cluster = _clusters.busca(c);
+            if (_veb_no_cluster == nullptr)
             {
                 _veb_no_cluster = new veb(_tamanho_meia_palavra);
-                _clusters[c] = _veb_no_cluster;
+                _clusters.inclui(c, _veb_no_cluster);
             }
         }
 
@@ -384,7 +377,7 @@ private:
     word_t _min;
     word_t _max;
     veb* _resumo;
-    std::unordered_map<word_t, veb*> _clusters;
+    ufc::eda::core::htbl<word_t, veb> _clusters;
 };
 
 }
