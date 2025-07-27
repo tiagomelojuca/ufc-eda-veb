@@ -92,14 +92,17 @@ public:
 
             const word_t c = cluster(x);
             const word_t i = indice(x);
-            veb* cluster = veb_no_cluster(c);
+            veb& cluster = veb_no_cluster(c);
 
-            if (cluster->min() == inf)
+            if (cluster.valido())
             {
-                _resumo->inclui(c);
-            }
+                if (cluster.min() == inf)
+                {
+                    _resumo->inclui(c);
+                }
 
-            cluster->inclui(i);
+                cluster.inclui(i);
+            }
         }
     }
 
@@ -109,6 +112,11 @@ public:
 
     word_t sucessor(word_t x)
     {
+        if (!valido())
+        {
+            return inf;
+        }
+
         if (x < _min)
         {
             return _min;
@@ -116,16 +124,16 @@ public:
 
         const word_t c = cluster(x);
         const word_t i = indice(x);
-        veb* cluster = veb_no_cluster(c);
+        veb& cluster = veb_no_cluster(c);
 
-        if (i < cluster->max())
+        if (i < cluster.max())
         {
-            return palavra(c, cluster->sucessor(i));
+            return palavra(c, cluster.sucessor(i));
         }
 
         const word_t c_linha = _resumo->sucessor(c);
 
-        return palavra(c_linha, veb_no_cluster(c_linha)->min());
+        return palavra(c_linha, veb_no_cluster(c_linha).min());
     }
 
     word_t predecessor(word_t x) const
@@ -152,7 +160,7 @@ private:
         return (cluster << _tamanho_meia_palavra) | indice;
     }
 
-    veb* veb_no_cluster(word_t c)
+    veb& veb_no_cluster(word_t c)
     {
         veb* _veb_no_cluster = nullptr;
 
@@ -167,12 +175,7 @@ private:
             _clusters[c] = _veb_no_cluster;
         }
 
-        if (!_veb_no_cluster->valido())
-        {
-            _veb_no_cluster = nullptr;
-        }
-
-        return _veb_no_cluster;
+        return *_veb_no_cluster;
     }
 
     void troca(word_t& v1, word_t& v2)
